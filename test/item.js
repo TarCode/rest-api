@@ -31,4 +31,25 @@ describe('Items', () => {
                 })
         })
     })
+
+    describe('/POST item', () => {
+        it('it should not post an item without a name', done => {
+            let item = {
+                createdAt: new Date(),
+                status: "todo"
+            }
+
+            chai.request(server)
+                .post('/items')
+                .send(item)
+                .end((err, res) => {
+                    res.should.have.status(200)
+                    res.body.should.be.a('object')
+                    res.body.should.have.property('errors')
+                    res.body.errors.should.have.property('name')
+                    res.body.errors.name.should.have.property('kind').eql('required')
+                    done()
+                })
+        })
+    })
 })
