@@ -1,37 +1,43 @@
+'use strict'
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const config = require('config')
 
 const app = express()
 
 const port = process.env.PORT || 3000
+let dbName = process.env.NODE_ENV === 'test' ? '/list-test' : '/list-dev'
+
+let mongoUrl = 'mongodb://' + process.env.MONGO_HOST || 'mongodb://localhost:27017'
+    mongoUrl = mongoUrl + dbName
 
 const mongoose = require('mongoose')
+const routes = require('./item-routes')
 
-Item = require('./item-model')
+const Item = require('./item-model')
 
 const options = {
     useMongoClient: true
 }; 
 
 mongoose.Promise = global.Promise
-mongoose.connect(config.DBHost, options)
+mongoose.connect(mongoUrl, options)
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'))
 
-if (config.util.getEnv('NODE_ENV') !== 'test') {
+if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('combined'))
 }
+routes(app)
 
 app.get("/", (req, res) => res.json({ message: "Welcome to Items Land!" }));
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-const routes = require('./item-routes')
-routes(app)
+
 
 app.listen(port, function() {
     console.log("App listening on port ", port);
