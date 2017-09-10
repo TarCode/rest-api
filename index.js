@@ -7,15 +7,15 @@ const port = process.env.PORT || 3000
 
 const mongoose = require('mongoose')
 
-Item = require('./list-model')
+Item = require('./item-model')
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/list-test')
+mongoose.connect('mongodb://localhost/list-test', { useMongoClient: true })
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.user(bodyParser.json())
+app.use(bodyParser.json())
 
-const routes = require('./list-routes')
+const routes = require('./item-routes')
 routes(app)
 
 app.listen(port, function() {

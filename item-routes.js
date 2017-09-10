@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = function (app) {
-    const list = require('./list-controller')
+    const list = require('./item-controller')
 
     app.route('/items')
         .get(list.getAllItems)
