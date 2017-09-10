@@ -37,8 +37,6 @@ app.get("/", (req, res) => res.json({ message: "Welcome to Items Land!" }));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-
-
 app.listen(port, function() {
     console.log("App listening on port ", port);
 })
