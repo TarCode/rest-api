@@ -1,5 +1,5 @@
 {
-  "name": "express-mongo",
+  "name": "rest-api-with-tests",
   "version": "1.0.0",
   "description": "express and mongo api",
   "main": "index.js",
