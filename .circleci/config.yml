@@ -25,5 +25,5 @@ jobs:
   deployment:
     hub:
       branch: master
-      commands:
+      steps:
         - $DEPLOY
