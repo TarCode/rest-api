@@ -21,3 +21,9 @@ jobs:
       - run: npm install  
       # run tests!
       - run: npm test
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - $DEPLOY
