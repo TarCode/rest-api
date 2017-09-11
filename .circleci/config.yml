@@ -22,8 +22,4 @@ jobs:
       # run tests!
       - run: npm test
 
-  deployment:
-    hub:
-      branch: master
-      steps:
-        - $DEPLOY
+      - run: $DEPLOY
