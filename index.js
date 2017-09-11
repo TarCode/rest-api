@@ -12,6 +12,10 @@ let dbName = process.env.NODE_ENV === 'test' ? '/list-test' : '/list-dev'
 let mongoUrl = 'mongodb://' + process.env.MONGO_HOST || 'mongodb://localhost:27017'
     mongoUrl = mongoUrl + dbName
 
+if (process.env.NODE_ENV === 'test') {
+    mongoUrl = "mongodb://test:test@ds133004.mlab.com:33004/list-test"
+}
+
 const mongoose = require('mongoose')
 const routes = require('./item-routes')
 
